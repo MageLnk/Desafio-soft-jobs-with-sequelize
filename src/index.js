@@ -1,9 +1,10 @@
 require("dotenv").config();
 // Necessaries
+const { config } = require("./config/config");
 // const { sequelize } = require('./models');
 const app = require("./app");
 // Puerto
-const PORT = process.env.PORT;
+const PORT = config.PORT;
 
 // Listener
 app.listen(PORT, (err) => {
