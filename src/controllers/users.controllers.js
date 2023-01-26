@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 // Services
-const { createNewUser, checkUserInfoForLogIn, getUserData } = require("../services/index.services");
+const { createNewUser } = require("../services/users.services");
 //
 const controller = {};
 
@@ -17,7 +17,7 @@ controller.createNewUser = async (req, res) => {
 controller.loginUser = async (req, res) => {
   try {
     const userInfo = req.body;
-    await checkUserInfoForLogIn(userInfo);
+    //await checkUserInfoForLogIn(userInfo);
     const token = jwt.sign(userInfo.email, process.env.SECRET_KEY);
     res.status(200).send(token);
   } catch (error) {
@@ -30,7 +30,7 @@ controller.bringUserData = async (req, res) => {
   try {
     const token = req.header("Authorization").split("Bearer ")[1];
     const email = jwt.decode(token);
-    const userData = await getUserData(email);
+    //const userData = await getUserData(email);
     res.status(200).send(userData);
   } catch (error) {
     res.status(500).send({ msg: error });

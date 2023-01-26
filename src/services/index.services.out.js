@@ -14,7 +14,19 @@ const createNewUser = async ({ email, password, rol, lenguage }) => {
     throw { msg: "Algo inesperado ha ocurrido", error };
   }
 };
+const getUserData = async (email) => {
+  const values = [email];
+  const query = "SELECT * FROM usuarios WHERE email = $1";
+  const {
+    rows: [user],
+    rowCount,
+  } = await pool.query(query, values);
+  if (!rowCount) throw { msg: "No se encontró ningún usuario con este email" };
+  delete user.password;
+  return user;
+};
 
+//
 const checkUserInfoForLogIn = async ({ email, password }) => {
   try {
     const values = [email];
@@ -31,17 +43,6 @@ const checkUserInfoForLogIn = async ({ email, password }) => {
     throw { msg: "Algo inesperado ha ocurrido", error };
   }
 };
-
-const getUserData = async (email) => {
-  const values = [email];
-  const query = "SELECT * FROM usuarios WHERE email = $1";
-  const {
-    rows: [user],
-    rowCount,
-  } = await pool.query(query, values);
-  if (!rowCount) throw { msg: "No se encontró ningún usuario con este email" };
-  delete user.password;
-  return user;
-};
+//
 
 module.exports = { createNewUser, checkUserInfoForLogIn, getUserData };
