@@ -11,9 +11,9 @@ app.use(cors());
 app.use(express.json());
 app.use(morganHechizo);
 // Routes
-const routing = require("./routes/index.routes");
+const router = require("./routes");
 // App
-app.use(routing);
+app.use(router);
 // Catcher
 app.get("*", (req, res) => {
   res.status(404).send({ msg: "Ruta not found" });

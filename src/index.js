@@ -4,7 +4,7 @@ const { config } = require("./config/config");
 // const { sequelize } = require('./models');
 const app = require("./app");
 // Puerto
-const PORT = config.PORT;
+const PORT = config.serverPort;
 
 // Listener
 app.listen(PORT, (err) => {
