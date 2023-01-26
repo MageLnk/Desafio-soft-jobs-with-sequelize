@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 // Config
 const { config } = require("../config/config");
 // Services
-const { createNewUser, checkUserInfoForLogIn } = require("../services/users.services");
+const { createNewUser, checkUserInfoForLogIn, getUserData } = require("../services/users.services");
 //
 const controller = {};
 
@@ -16,6 +16,7 @@ controller.createNewUser = async (req, res) => {
     console.error(`Un usuario acaba de generar el error: ${error}`);
   }
 };
+
 controller.loginUser = async (req, res) => {
   try {
     const userInfo = req.body;
@@ -32,7 +33,7 @@ controller.bringUserData = async (req, res) => {
   try {
     const token = req.header("Authorization").split("Bearer ")[1];
     const email = jwt.decode(token);
-    //const userData = await getUserData(email);
+    const userData = await getUserData(email);
     res.status(200).send(userData);
   } catch (error) {
     res.status(500).send({ msg: error });

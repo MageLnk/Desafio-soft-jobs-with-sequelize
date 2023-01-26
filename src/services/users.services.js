@@ -30,4 +30,19 @@ users.checkUserInfoForLogIn = async ({ email, password }) => {
   }
 };
 
+users.getUserData = async (email) => {
+  try {
+    const lookingForUser = await User.findOne({ where: { email: email } });
+    if (!lookingForUser) throw "El email no está registrado";
+    const cleanInfo = lookingForUser.get({ raw: true });
+    return {
+      email: cleanInfo.email,
+      rol: cleanInfo.rol,
+      lenguage: cleanInfo.lenguage,
+    };
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = users;
