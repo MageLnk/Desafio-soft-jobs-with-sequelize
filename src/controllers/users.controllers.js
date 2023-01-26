@@ -7,7 +7,8 @@ const controller = {};
 controller.createNewUser = async (req, res) => {
   try {
     const userInfo = req.body;
-    await createNewUser(userInfo);
+    const newUser = await createNewUser(userInfo);
+    console.log("newUser", newUser);
     res.status(200).send({ msg: "Usuario creado con éxito" });
   } catch (error) {
     res.status(500).send({ msg: error });

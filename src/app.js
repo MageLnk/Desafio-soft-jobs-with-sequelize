@@ -13,7 +13,7 @@ app.use(morganHechizo);
 // Routes
 const router = require("./routes");
 // App
-app.use(router);
+app.use("/", router);
 // Catcher
 app.get("*", (req, res) => {
   res.status(404).send({ msg: "Ruta not found" });

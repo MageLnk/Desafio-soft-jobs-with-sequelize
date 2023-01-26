@@ -2,10 +2,10 @@ const { Sequelize, DataTypes } = require("sequelize");
 const {
   config: { database },
 } = require("../config/config");
-
-//const User = require("./user.model");
+// Bring Models
+const User = require("./user.model");
 //const Rol = require("./rol.model");
-
+// Set DB
 // Option 3: Passing parameters separately (other dialects)
 const sequelize = new Sequelize(database.dbName, database.user, database.password, {
   host: database.host,
@@ -13,18 +13,11 @@ const sequelize = new Sequelize(database.dbName, database.user, database.passwor
   dialect: database.dialect,
 });
 
-// models
+// Models
 const models = {
-  //User: User(sequelize, DataTypes),
+  User: User(sequelize, DataTypes),
   //Rol: Rol(sequelize, DataTypes),
 };
-
-// relations
-Object.keys(models).forEach((key) => {
-  if ("associate" in models[key]) {
-    models[key].associate(models);
-  }
-});
 
 // export
 module.exports = { sequelize, models };

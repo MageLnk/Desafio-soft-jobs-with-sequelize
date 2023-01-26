@@ -6,9 +6,9 @@ const router = express.Router();
 const { createNewUser, loginUser, bringUserData } = require("../controllers/users.controllers");
 // Routes
 //router.post("/usuarios", checkEssentialInformation, createNewUser);
-router.post(createNewUser);
+router.post("/", createNewUser);
 //router.get("/usuarios", tokenVerification, bringUserData);
-router.get(bringUserData);
+router.get("/", bringUserData);
 
 router.post("/login", loginUser);
 
