@@ -11,7 +11,8 @@ const createNewUser = async ({ email, password, rol, lenguage }) => {
     if (rowCount != 1) throw { msg: "No se pudo crear el usuario. Inténtelo nuevamente" };
     return rowCount;
   } catch (error) {
-    throw { msg: "Algo inesperado ha ocurrido", error };
+    console.error(error);
+    throw { msg: "Algo inesperado ha ocurrido" };
   }
 };
 const getUserData = async (email) => {
@@ -40,7 +41,8 @@ const checkUserInfoForLogIn = async ({ email, password }) => {
 
     if (!checkPassword || !rowCount) throw { msg: "Email o contraseña incorrectos" };
   } catch (error) {
-    throw { msg: "Algo inesperado ha ocurrido", error };
+    console.error(error);
+    throw { msg: "Algo inesperado ha ocurrido" };
   }
 };
 //

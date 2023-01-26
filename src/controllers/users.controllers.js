@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
+// Config
+const { config } = require("../config/config");
 // Services
-const { createNewUser } = require("../services/users.services");
+const { createNewUser, checkUserInfoForLogIn } = require("../services/users.services");
 //
 const controller = {};
 
@@ -8,8 +10,7 @@ controller.createNewUser = async (req, res) => {
   try {
     const userInfo = req.body;
     const newUser = await createNewUser(userInfo);
-    console.log("newUser", newUser);
-    res.status(200).send({ msg: "Usuario creado con éxito" });
+    res.status(200).send({ msg: `El usuario de correo ${newUser.email} ha creado con éxito` });
   } catch (error) {
     res.status(500).send({ msg: error });
     console.error(`Un usuario acaba de generar el error: ${error}`);
@@ -18,8 +19,8 @@ controller.createNewUser = async (req, res) => {
 controller.loginUser = async (req, res) => {
   try {
     const userInfo = req.body;
-    //await checkUserInfoForLogIn(userInfo);
-    const token = jwt.sign(userInfo.email, process.env.SECRET_KEY);
+    await checkUserInfoForLogIn(userInfo);
+    const token = jwt.sign(userInfo.email, config.jwtSecret);
     res.status(200).send(token);
   } catch (error) {
     res.status(500).send({ msg: error });

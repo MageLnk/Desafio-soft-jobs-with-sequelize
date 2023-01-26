@@ -4,7 +4,6 @@ const {
 } = require("../config/config");
 // Bring Models
 const User = require("./user.model");
-//const Rol = require("./rol.model");
 // Set DB
 // Option 3: Passing parameters separately (other dialects)
 const sequelize = new Sequelize(database.dbName, database.user, database.password, {
@@ -16,7 +15,6 @@ const sequelize = new Sequelize(database.dbName, database.user, database.passwor
 // Models
 const models = {
   User: User(sequelize, DataTypes),
-  //Rol: Rol(sequelize, DataTypes),
 };
 
 // export

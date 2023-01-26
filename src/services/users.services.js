@@ -13,7 +13,20 @@ users.createNewUser = async ({ email, password, rol, lenguage }) => {
     const newUser = await User.create({ email, password: hashPass, rol, lenguage });
     return newUser.get({ raw: true });
   } catch (error) {
-    throw { msg: "Algo inesperado ha ocurrido", error };
+    throw { error };
+  }
+};
+
+users.checkUserInfoForLogIn = async ({ email, password }) => {
+  try {
+    const lookingForUser = await User.findOne({ where: { email: email } });
+    if (!lookingForUser) throw "El email no está registrado";
+    const cleanInfo = lookingForUser.get({ raw: true });
+    const { password: passSaved } = cleanInfo;
+    const checkPassword = bcrypt.compareSync(password, passSaved);
+    if (!checkPassword) throw "La contraseña es incorrecta";
+  } catch (error) {
+    throw error;
   }
 };
 
